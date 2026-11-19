@@ -2,11 +2,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from sqlalchemy import create_engine, event, inspect, select, text
+from sqlalchemy import inspect, select, text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from database.database import Base, enable_foreign_keys
+from database.database import Base, create_db_engine
 from models.artista import Artista
 from models.genero import Genero
 from models.vinilo import Vinilo
@@ -27,9 +27,7 @@ class ModelsTest(unittest.TestCase):
         self.genero_id = genero.id_genero
 
     def make_engine(self):
-        engine = create_engine(self.url)
-        event.listen(engine, "connect", enable_foreign_keys)
-        return engine
+        return create_db_engine(self.url)
 
     def tearDown(self):
         self.session.close()

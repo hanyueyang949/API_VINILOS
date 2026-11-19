@@ -1,7 +1,12 @@
 from fastapi import HTTPException
+from pydantic import BaseModel, ValidationError
+from typing import Type, TypeVar
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Session
+
+
+ResponseModel = TypeVar("ResponseModel", bound=BaseModel)
 
 
 def get_or_404(db: Session, model, item_id: int):
@@ -15,23 +20,27 @@ def list_items(db: Session, model, primary_key):
     return db.scalars(select(model).order_by(primary_key)).all()
 
 
-def save(db: Session, item):
+def save(db: Session, item, response_model: Type[ResponseModel]) -> ResponseModel:
     try:
         db.add(item)
-        db.commit()
+        db.flush()
         db.refresh(item)
+        # Preparar la salida antes de confirmar. No leer del ORM después del commit:
+        # una lectura o validación fallida todavía debe poder revertir la escritura.
+        response = response_model.model_validate(item)
+        db.commit()
     except IntegrityError:
         db.rollback()
         raise HTTPException(
             status_code=400,
             detail="No se pudo guardar: hay datos duplicados o referencias no válidas.",
         ) from None
-    except SQLAlchemyError:
+    except (SQLAlchemyError, ValidationError):
         db.rollback()
         raise HTTPException(
             status_code=500, detail="No se pudo guardar el recurso. Inténtalo más tarde."
         ) from None
-    return item
+    return response
 
 
 def delete(db: Session, item):

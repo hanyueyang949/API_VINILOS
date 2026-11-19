@@ -1,0 +1,3080 @@
+[
+  {
+    "caso": "Catálogo vacío de artistas",
+    "peticion": "GET /artistas",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": []
+    },
+    "obtenido": {
+      "status": 200,
+      "body": []
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Catálogo vacío de generos",
+    "peticion": "GET /generos",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": []
+    },
+    "obtenido": {
+      "status": 200,
+      "body": []
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Catálogo vacío de vinilos",
+    "peticion": "GET /vinilos",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": []
+    },
+    "obtenido": {
+      "status": 200,
+      "body": []
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Alta de artista",
+    "peticion": "POST /artistas",
+    "entrada": {
+      "nombre": "Artista HTTP",
+      "descripcion": "Biografía"
+    },
+    "esperado": {
+      "status": 201,
+      "body": {
+        "id_artista": 1,
+        "nombre": "Artista HTTP",
+        "descripcion": "Biografía"
+      }
+    },
+    "obtenido": {
+      "status": 201,
+      "body": {
+        "nombre": "Artista HTTP",
+        "descripcion": "Biografía",
+        "id_artista": 1
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Alta de segundo artista",
+    "peticion": "POST /artistas",
+    "entrada": {
+      "nombre": "Otro artista"
+    },
+    "esperado": {
+      "status": 201,
+      "body": {
+        "id_artista": 2,
+        "nombre": "Otro artista",
+        "descripcion": null
+      }
+    },
+    "obtenido": {
+      "status": 201,
+      "body": {
+        "nombre": "Otro artista",
+        "descripcion": null,
+        "id_artista": 2
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Alta de género",
+    "peticion": "POST /generos",
+    "entrada": {
+      "tipo": "Rock HTTP"
+    },
+    "esperado": {
+      "status": 201,
+      "body": {
+        "id_genero": 1,
+        "tipo": "Rock HTTP"
+      }
+    },
+    "obtenido": {
+      "status": 201,
+      "body": {
+        "tipo": "Rock HTTP",
+        "id_genero": 1
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Alta de género",
+    "peticion": "POST /generos",
+    "entrada": {
+      "tipo": "Jazz HTTP"
+    },
+    "esperado": {
+      "status": 201,
+      "body": {
+        "id_genero": 2,
+        "tipo": "Jazz HTTP"
+      }
+    },
+    "obtenido": {
+      "status": 201,
+      "body": {
+        "tipo": "Jazz HTTP",
+        "id_genero": 2
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Alta de género",
+    "peticion": "POST /generos",
+    "entrada": {
+      "tipo": "Sin discos"
+    },
+    "esperado": {
+      "status": 201,
+      "body": {
+        "id_genero": 3,
+        "tipo": "Sin discos"
+      }
+    },
+    "obtenido": {
+      "status": 201,
+      "body": {
+        "tipo": "Sin discos",
+        "id_genero": 3
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Nombre duplicado",
+    "peticion": "POST /artistas",
+    "entrada": {
+      "nombre": "Artista HTTP"
+    },
+    "esperado": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "obtenido": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Tipo duplicado",
+    "peticion": "POST /generos",
+    "entrada": {
+      "tipo": "Rock HTTP"
+    },
+    "esperado": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "obtenido": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Alta de vinilo con ambas relaciones",
+    "peticion": "POST /vinilos",
+    "entrada": {
+      "titulo": "Disco HTTP",
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 201,
+      "body": {
+        "titulo": "Disco HTTP",
+        "año": 2000,
+        "precio": "12.50",
+        "descripcion": "Prueba HTTP",
+        "artista_id": 1,
+        "genero_id": 1,
+        "id_vinilo": 1
+      }
+    },
+    "obtenido": {
+      "status": 201,
+      "body": {
+        "titulo": "Disco HTTP",
+        "año": 2000,
+        "precio": "12.50",
+        "descripcion": "Prueba HTTP",
+        "artista_id": 1,
+        "genero_id": 1,
+        "id_vinilo": 1
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Alta de otro vinilo",
+    "peticion": "POST /vinilos",
+    "entrada": {
+      "titulo": "Segundo disco",
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 201,
+      "body": {
+        "titulo": "Segundo disco",
+        "año": 2000,
+        "precio": "12.50",
+        "descripcion": "Prueba HTTP",
+        "artista_id": 1,
+        "genero_id": 1,
+        "id_vinilo": 2
+      }
+    },
+    "obtenido": {
+      "status": 201,
+      "body": {
+        "titulo": "Segundo disco",
+        "año": 2000,
+        "precio": "12.50",
+        "descripcion": "Prueba HTTP",
+        "artista_id": 1,
+        "genero_id": 1,
+        "id_vinilo": 2
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Consulta por ID con artista y género",
+    "peticion": "GET /vinilos/1",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": {
+        "titulo": "Disco HTTP",
+        "año": 2000,
+        "precio": "12.50",
+        "descripcion": "Prueba HTTP",
+        "artista_id": 1,
+        "genero_id": 1,
+        "id_vinilo": 1,
+        "artista": {
+          "id_artista": 1,
+          "nombre": "Artista HTTP"
+        },
+        "genero": {
+          "id_genero": 1,
+          "tipo": "Rock HTTP"
+        }
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "titulo": "Disco HTTP",
+        "año": 2000,
+        "precio": "12.50",
+        "descripcion": "Prueba HTTP",
+        "artista_id": 1,
+        "genero_id": 1,
+        "id_vinilo": 1,
+        "artista": {
+          "id_artista": 1,
+          "nombre": "Artista HTTP"
+        },
+        "genero": {
+          "id_genero": 1,
+          "tipo": "Rock HTTP"
+        }
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Listado de artistas",
+    "peticion": "GET /artistas",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": [
+        {
+          "id_artista": 1,
+          "nombre": "Artista HTTP",
+          "descripcion": "Biografía"
+        },
+        {
+          "id_artista": 2,
+          "nombre": "Otro artista",
+          "descripcion": null
+        }
+      ]
+    },
+    "obtenido": {
+      "status": 200,
+      "body": [
+        {
+          "nombre": "Artista HTTP",
+          "descripcion": "Biografía",
+          "id_artista": 1
+        },
+        {
+          "nombre": "Otro artista",
+          "descripcion": null,
+          "id_artista": 2
+        }
+      ]
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Ficha de artista con vinilos",
+    "peticion": "GET /artistas/1",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": {
+        "id_artista": 1,
+        "nombre": "Artista HTTP",
+        "descripcion": "Biografía",
+        "vinilos": [
+          {
+            "titulo": "Disco HTTP",
+            "año": 2000,
+            "precio": "12.50",
+            "descripcion": "Prueba HTTP",
+            "artista_id": 1,
+            "genero_id": 1,
+            "id_vinilo": 1
+          },
+          {
+            "titulo": "Segundo disco",
+            "año": 2000,
+            "precio": "12.50",
+            "descripcion": "Prueba HTTP",
+            "artista_id": 1,
+            "genero_id": 1,
+            "id_vinilo": 2
+          }
+        ]
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "nombre": "Artista HTTP",
+        "descripcion": "Biografía",
+        "id_artista": 1,
+        "vinilos": [
+          {
+            "titulo": "Disco HTTP",
+            "año": 2000,
+            "precio": "12.50",
+            "descripcion": "Prueba HTTP",
+            "artista_id": 1,
+            "genero_id": 1,
+            "id_vinilo": 1
+          },
+          {
+            "titulo": "Segundo disco",
+            "año": 2000,
+            "precio": "12.50",
+            "descripcion": "Prueba HTTP",
+            "artista_id": 1,
+            "genero_id": 1,
+            "id_vinilo": 2
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Ficha de artista sin vinilos",
+    "peticion": "GET /artistas/2",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": {
+        "id_artista": 2,
+        "nombre": "Otro artista",
+        "descripcion": null,
+        "vinilos": []
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "nombre": "Otro artista",
+        "descripcion": null,
+        "id_artista": 2,
+        "vinilos": []
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Género sin vinilos",
+    "peticion": "GET /vinilos?genero_id=3",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": []
+    },
+    "obtenido": {
+      "status": 200,
+      "body": []
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Filtro con coincidencias",
+    "peticion": "GET /vinilos?genero_id=1",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Disco HTTP",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 1
+        },
+        {
+          "titulo": "Segundo disco",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 2
+        }
+      ]
+    },
+    "obtenido": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Disco HTTP",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 1
+        },
+        {
+          "titulo": "Segundo disco",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 2
+        }
+      ]
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Filtro de género inexistente",
+    "peticion": "GET /vinilos?genero_id=9999",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": []
+    },
+    "obtenido": {
+      "status": 200,
+      "body": []
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Filtro inválido",
+    "peticion": "GET /vinilos?genero_id=",
+    "entrada": null,
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "query",
+              "genero_id"
+            ],
+            "type": "value_error"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Filtro inválido",
+    "peticion": "GET /vinilos?genero_id=abc",
+    "entrada": null,
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "query",
+              "genero_id"
+            ],
+            "type": "value_error"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Filtro inválido",
+    "peticion": "GET /vinilos?genero_id=0",
+    "entrada": null,
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "query",
+              "genero_id"
+            ],
+            "type": "greater_than"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Filtro inválido",
+    "peticion": "GET /vinilos?genero_id=-1",
+    "entrada": null,
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "query",
+              "genero_id"
+            ],
+            "type": "value_error"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Filtro inválido",
+    "peticion": "GET /vinilos?genero_id=1.5",
+    "entrada": null,
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "query",
+              "genero_id"
+            ],
+            "type": "value_error"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Filtro inválido",
+    "peticion": "GET /vinilos?genero_id=1.0",
+    "entrada": null,
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "query",
+              "genero_id"
+            ],
+            "type": "value_error"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /artistas",
+    "entrada": {
+      "nombre": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "nombre"
+            ],
+            "type": "string_too_long"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /artistas/1",
+    "entrada": {
+      "nombre": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "nombre"
+            ],
+            "type": "string_too_long"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /generos",
+    "entrada": {
+      "tipo": 123
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "tipo"
+            ],
+            "type": "string_type"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /generos/1",
+    "entrada": {
+      "tipo": 123
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "tipo"
+            ],
+            "type": "string_type"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /vinilos",
+    "entrada": {
+      "titulo": "Disco HTTP",
+      "año": 2000,
+      "precio": "1.001",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "precio"
+            ],
+            "type": "decimal_max_places"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /vinilos/1",
+    "entrada": {
+      "titulo": "Disco HTTP",
+      "año": 2000,
+      "precio": "1.001",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "precio"
+            ],
+            "type": "decimal_max_places"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /vinilos",
+    "entrada": {
+      "titulo": "Sin relaciones"
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "artista_id"
+            ],
+            "type": "missing"
+          },
+          {
+            "loc": [
+              "body",
+              "genero_id"
+            ],
+            "type": "missing"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /vinilos/1",
+    "entrada": {
+      "titulo": "Sin relaciones"
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "artista_id"
+            ],
+            "type": "missing"
+          },
+          {
+            "loc": [
+              "body",
+              "genero_id"
+            ],
+            "type": "missing"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /artistas",
+    "entrada": {},
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "nombre"
+            ],
+            "type": "missing"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /artistas/1",
+    "entrada": {},
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "nombre"
+            ],
+            "type": "missing"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /artistas",
+    "entrada": {
+      "nombre": null
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "nombre"
+            ],
+            "type": "string_type"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /artistas/1",
+    "entrada": {
+      "nombre": null
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "nombre"
+            ],
+            "type": "string_type"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /artistas",
+    "entrada": {
+      "nombre": "   "
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "nombre"
+            ],
+            "type": "value_error"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /artistas/1",
+    "entrada": {
+      "nombre": "   "
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "nombre"
+            ],
+            "type": "value_error"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /artistas",
+    "entrada": {
+      "nombre": ""
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "nombre"
+            ],
+            "type": "string_too_short"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /artistas/1",
+    "entrada": {
+      "nombre": ""
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "nombre"
+            ],
+            "type": "string_too_short"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /generos",
+    "entrada": {},
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "tipo"
+            ],
+            "type": "missing"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /generos/1",
+    "entrada": {},
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "tipo"
+            ],
+            "type": "missing"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /generos",
+    "entrada": {
+      "tipo": null
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "tipo"
+            ],
+            "type": "string_type"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /generos/1",
+    "entrada": {
+      "tipo": null
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "tipo"
+            ],
+            "type": "string_type"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /generos",
+    "entrada": {
+      "tipo": "   "
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "tipo"
+            ],
+            "type": "value_error"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /generos/1",
+    "entrada": {
+      "tipo": "   "
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "tipo"
+            ],
+            "type": "value_error"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /generos",
+    "entrada": {
+      "tipo": ""
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "tipo"
+            ],
+            "type": "string_too_short"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /generos/1",
+    "entrada": {
+      "tipo": ""
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "tipo"
+            ],
+            "type": "string_too_short"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /vinilos",
+    "entrada": {
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "titulo"
+            ],
+            "type": "missing"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /vinilos/1",
+    "entrada": {
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "titulo"
+            ],
+            "type": "missing"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /vinilos",
+    "entrada": {
+      "titulo": null,
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "titulo"
+            ],
+            "type": "string_type"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /vinilos/1",
+    "entrada": {
+      "titulo": null,
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "titulo"
+            ],
+            "type": "string_type"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /vinilos",
+    "entrada": {
+      "titulo": "   ",
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "titulo"
+            ],
+            "type": "value_error"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /vinilos/1",
+    "entrada": {
+      "titulo": "   ",
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "titulo"
+            ],
+            "type": "value_error"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /vinilos",
+    "entrada": {
+      "titulo": "",
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "titulo"
+            ],
+            "type": "string_too_short"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /vinilos/1",
+    "entrada": {
+      "titulo": "",
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "titulo"
+            ],
+            "type": "string_too_short"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "POST /vinilos",
+    "entrada": {
+      "titulo": "Disco HTTP",
+      "año": 2000,
+      "precio": "-0.01",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "precio"
+            ],
+            "type": "greater_than_equal"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Entrada inválida",
+    "peticion": "PUT /vinilos/1",
+    "entrada": {
+      "titulo": "Disco HTTP",
+      "año": 2000,
+      "precio": "-0.01",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos."
+      }
+    },
+    "obtenido": {
+      "status": 422,
+      "body": {
+        "detail": "Datos de entrada no válidos.",
+        "errors": [
+          {
+            "loc": [
+              "body",
+              "precio"
+            ],
+            "type": "greater_than_equal"
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "ID inexistente",
+    "peticion": "GET /artistas/9999",
+    "entrada": null,
+    "esperado": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "obtenido": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "ID inexistente",
+    "peticion": "PUT /artistas/9999",
+    "entrada": {
+      "nombre": "X"
+    },
+    "esperado": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "obtenido": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "ID inexistente",
+    "peticion": "DELETE /artistas/9999",
+    "entrada": null,
+    "esperado": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "obtenido": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "ID inexistente",
+    "peticion": "GET /generos/9999",
+    "entrada": null,
+    "esperado": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "obtenido": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "ID inexistente",
+    "peticion": "PUT /generos/9999",
+    "entrada": {
+      "tipo": "X"
+    },
+    "esperado": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "obtenido": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "ID inexistente",
+    "peticion": "DELETE /generos/9999",
+    "entrada": null,
+    "esperado": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "obtenido": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "ID inexistente",
+    "peticion": "GET /vinilos/9999",
+    "entrada": null,
+    "esperado": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "obtenido": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "ID inexistente",
+    "peticion": "PUT /vinilos/9999",
+    "entrada": {
+      "titulo": "Disco HTTP",
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "obtenido": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "ID inexistente",
+    "peticion": "DELETE /vinilos/9999",
+    "entrada": null,
+    "esperado": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "obtenido": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Relación inexistente",
+    "peticion": "POST /vinilos",
+    "entrada": {
+      "titulo": "Disco HTTP",
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 9999,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "obtenido": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Relación inexistente",
+    "peticion": "PUT /vinilos/1",
+    "entrada": {
+      "titulo": "Disco HTTP",
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 9999,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "obtenido": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Relación inexistente",
+    "peticion": "POST /vinilos",
+    "entrada": {
+      "titulo": "Disco HTTP",
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 9999
+    },
+    "esperado": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "obtenido": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Relación inexistente",
+    "peticion": "PUT /vinilos/1",
+    "entrada": {
+      "titulo": "Disco HTTP",
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 9999
+    },
+    "esperado": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "obtenido": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Vinilo duplicado",
+    "peticion": "POST /vinilos",
+    "entrada": {
+      "titulo": "Disco HTTP",
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 2
+    },
+    "esperado": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "obtenido": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Edición a vinilo duplicado",
+    "peticion": "PUT /vinilos/2",
+    "entrada": {
+      "titulo": "Disco HTTP",
+      "año": 2000,
+      "precio": "12.50",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 2
+    },
+    "esperado": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "obtenido": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Renombrar artista a duplicado",
+    "peticion": "PUT /artistas/1",
+    "entrada": {
+      "nombre": "Otro artista"
+    },
+    "esperado": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "obtenido": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Renombrar género a duplicado",
+    "peticion": "PUT /generos/1",
+    "entrada": {
+      "tipo": "Jazz HTTP"
+    },
+    "esperado": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "obtenido": {
+      "status": 400,
+      "body": {
+        "detail": "No se pudo guardar: hay datos duplicados o referencias no válidas."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Rollback tras errores",
+    "peticion": "GET /vinilos",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Disco HTTP",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 1
+        },
+        {
+          "titulo": "Segundo disco",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 2
+        }
+      ]
+    },
+    "obtenido": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Disco HTTP",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 1
+        },
+        {
+          "titulo": "Segundo disco",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 2
+        }
+      ]
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Editar artista",
+    "peticion": "PUT /artistas/1",
+    "entrada": {
+      "nombre": "Artista editado",
+      "descripcion": "Biografía editada"
+    },
+    "esperado": {
+      "status": 200,
+      "body": {
+        "id_artista": 1,
+        "nombre": "Artista editado",
+        "descripcion": "Biografía editada"
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "nombre": "Artista editado",
+        "descripcion": "Biografía editada",
+        "id_artista": 1
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Renombrar género",
+    "peticion": "PUT /generos/1",
+    "entrada": {
+      "tipo": "Rock editado"
+    },
+    "esperado": {
+      "status": 200,
+      "body": {
+        "id_genero": 1,
+        "tipo": "Rock editado"
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "tipo": "Rock editado",
+        "id_genero": 1
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Asociaciones conservadas",
+    "peticion": "GET /artistas/1",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": {
+        "id_artista": 1,
+        "nombre": "Artista editado",
+        "descripcion": "Biografía editada",
+        "vinilos": [
+          {
+            "titulo": "Disco HTTP",
+            "año": 2000,
+            "precio": "12.50",
+            "descripcion": "Prueba HTTP",
+            "artista_id": 1,
+            "genero_id": 1,
+            "id_vinilo": 1
+          },
+          {
+            "titulo": "Segundo disco",
+            "año": 2000,
+            "precio": "12.50",
+            "descripcion": "Prueba HTTP",
+            "artista_id": 1,
+            "genero_id": 1,
+            "id_vinilo": 2
+          }
+        ]
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "nombre": "Artista editado",
+        "descripcion": "Biografía editada",
+        "id_artista": 1,
+        "vinilos": [
+          {
+            "titulo": "Disco HTTP",
+            "año": 2000,
+            "precio": "12.50",
+            "descripcion": "Prueba HTTP",
+            "artista_id": 1,
+            "genero_id": 1,
+            "id_vinilo": 1
+          },
+          {
+            "titulo": "Segundo disco",
+            "año": 2000,
+            "precio": "12.50",
+            "descripcion": "Prueba HTTP",
+            "artista_id": 1,
+            "genero_id": 1,
+            "id_vinilo": 2
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Borrado bloqueado",
+    "peticion": "DELETE /artistas/1",
+    "entrada": null,
+    "esperado": {
+      "status": 400,
+      "body": {
+        "detail": "No se puede eliminar el recurso porque tiene vinilos asociados."
+      }
+    },
+    "obtenido": {
+      "status": 400,
+      "body": {
+        "detail": "No se puede eliminar el recurso porque tiene vinilos asociados."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Borrado bloqueado",
+    "peticion": "DELETE /generos/1",
+    "entrada": null,
+    "esperado": {
+      "status": 400,
+      "body": {
+        "detail": "No se puede eliminar el recurso porque tiene vinilos asociados."
+      }
+    },
+    "obtenido": {
+      "status": 400,
+      "body": {
+        "detail": "No se puede eliminar el recurso porque tiene vinilos asociados."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Editar todos los datos y relaciones",
+    "peticion": "PUT /vinilos/1",
+    "entrada": {
+      "titulo": "Disco editado",
+      "año": 2026,
+      "precio": "25.75",
+      "descripcion": "Edición modificada",
+      "artista_id": 2,
+      "genero_id": 2
+    },
+    "esperado": {
+      "status": 200,
+      "body": {
+        "titulo": "Disco editado",
+        "año": 2026,
+        "precio": "25.75",
+        "descripcion": "Edición modificada",
+        "artista_id": 2,
+        "genero_id": 2,
+        "id_vinilo": 1
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "titulo": "Disco editado",
+        "año": 2026,
+        "precio": "25.75",
+        "descripcion": "Edición modificada",
+        "artista_id": 2,
+        "genero_id": 2,
+        "id_vinilo": 1
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Ficha tras editar",
+    "peticion": "GET /vinilos/1",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": {
+        "titulo": "Disco editado",
+        "año": 2026,
+        "precio": "25.75",
+        "descripcion": "Edición modificada",
+        "artista_id": 2,
+        "genero_id": 2,
+        "id_vinilo": 1,
+        "artista": {
+          "id_artista": 2,
+          "nombre": "Otro artista"
+        },
+        "genero": {
+          "id_genero": 2,
+          "tipo": "Jazz HTTP"
+        }
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "titulo": "Disco editado",
+        "año": 2026,
+        "precio": "25.75",
+        "descripcion": "Edición modificada",
+        "artista_id": 2,
+        "genero_id": 2,
+        "id_vinilo": 1,
+        "artista": {
+          "id_artista": 2,
+          "nombre": "Otro artista"
+        },
+        "genero": {
+          "id_genero": 2,
+          "tipo": "Jazz HTTP"
+        }
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Catálogo tras editar",
+    "peticion": "GET /vinilos",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Disco editado",
+          "año": 2026,
+          "precio": "25.75",
+          "descripcion": "Edición modificada",
+          "artista_id": 2,
+          "genero_id": 2,
+          "id_vinilo": 1
+        },
+        {
+          "titulo": "Segundo disco",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 2
+        }
+      ]
+    },
+    "obtenido": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Disco editado",
+          "año": 2026,
+          "precio": "25.75",
+          "descripcion": "Edición modificada",
+          "artista_id": 2,
+          "genero_id": 2,
+          "id_vinilo": 1
+        },
+        {
+          "titulo": "Segundo disco",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 2
+        }
+      ]
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Filtro anterior tras reasignación",
+    "peticion": "GET /vinilos?genero_id=1",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Segundo disco",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 2
+        }
+      ]
+    },
+    "obtenido": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Segundo disco",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 2
+        }
+      ]
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Filtro nuevo tras reasignación",
+    "peticion": "GET /vinilos?genero_id=2",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Disco editado",
+          "año": 2026,
+          "precio": "25.75",
+          "descripcion": "Edición modificada",
+          "artista_id": 2,
+          "genero_id": 2,
+          "id_vinilo": 1
+        }
+      ]
+    },
+    "obtenido": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Disco editado",
+          "año": 2026,
+          "precio": "25.75",
+          "descripcion": "Edición modificada",
+          "artista_id": 2,
+          "genero_id": 2,
+          "id_vinilo": 1
+        }
+      ]
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Persistencia: catálogo tras reiniciar Uvicorn",
+    "peticion": "GET /vinilos",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Disco editado",
+          "año": 2026,
+          "precio": "25.75",
+          "descripcion": "Edición modificada",
+          "artista_id": 2,
+          "genero_id": 2,
+          "id_vinilo": 1
+        },
+        {
+          "titulo": "Segundo disco",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 2
+        }
+      ]
+    },
+    "obtenido": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Disco editado",
+          "año": 2026,
+          "precio": "25.75",
+          "descripcion": "Edición modificada",
+          "artista_id": 2,
+          "genero_id": 2,
+          "id_vinilo": 1
+        },
+        {
+          "titulo": "Segundo disco",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 2
+        }
+      ]
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Persistencia: artista editado",
+    "peticion": "GET /artistas/1",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": {
+        "id_artista": 1,
+        "nombre": "Artista editado",
+        "descripcion": "Biografía editada",
+        "vinilos": [
+          {
+            "titulo": "Segundo disco",
+            "año": 2000,
+            "precio": "12.50",
+            "descripcion": "Prueba HTTP",
+            "artista_id": 1,
+            "genero_id": 1,
+            "id_vinilo": 2
+          }
+        ]
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "nombre": "Artista editado",
+        "descripcion": "Biografía editada",
+        "id_artista": 1,
+        "vinilos": [
+          {
+            "titulo": "Segundo disco",
+            "año": 2000,
+            "precio": "12.50",
+            "descripcion": "Prueba HTTP",
+            "artista_id": 1,
+            "genero_id": 1,
+            "id_vinilo": 2
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Persistencia: género renombrado",
+    "peticion": "GET /generos/1",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": {
+        "id_genero": 1,
+        "tipo": "Rock editado"
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "tipo": "Rock editado",
+        "id_genero": 1
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Persistencia: nuevas relaciones",
+    "peticion": "GET /artistas/2",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": {
+        "id_artista": 2,
+        "nombre": "Otro artista",
+        "descripcion": null,
+        "vinilos": [
+          {
+            "titulo": "Disco editado",
+            "año": 2026,
+            "precio": "25.75",
+            "descripcion": "Edición modificada",
+            "artista_id": 2,
+            "genero_id": 2,
+            "id_vinilo": 1
+          }
+        ]
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "nombre": "Otro artista",
+        "descripcion": null,
+        "id_artista": 2,
+        "vinilos": [
+          {
+            "titulo": "Disco editado",
+            "año": 2026,
+            "precio": "25.75",
+            "descripcion": "Edición modificada",
+            "artista_id": 2,
+            "genero_id": 2,
+            "id_vinilo": 1
+          }
+        ]
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Persistencia: filtro",
+    "peticion": "GET /vinilos?genero_id=2",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Disco editado",
+          "año": 2026,
+          "precio": "25.75",
+          "descripcion": "Edición modificada",
+          "artista_id": 2,
+          "genero_id": 2,
+          "id_vinilo": 1
+        }
+      ]
+    },
+    "obtenido": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Disco editado",
+          "año": 2026,
+          "precio": "25.75",
+          "descripcion": "Edición modificada",
+          "artista_id": 2,
+          "genero_id": 2,
+          "id_vinilo": 1
+        }
+      ]
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Persistencia: ficha con relaciones",
+    "peticion": "GET /vinilos/1",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": {
+        "titulo": "Disco editado",
+        "año": 2026,
+        "precio": "25.75",
+        "descripcion": "Edición modificada",
+        "artista_id": 2,
+        "genero_id": 2,
+        "id_vinilo": 1,
+        "artista": {
+          "id_artista": 2,
+          "nombre": "Otro artista"
+        },
+        "genero": {
+          "id_genero": 2,
+          "tipo": "Jazz HTTP"
+        }
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "titulo": "Disco editado",
+        "año": 2026,
+        "precio": "25.75",
+        "descripcion": "Edición modificada",
+        "artista_id": 2,
+        "genero_id": 2,
+        "id_vinilo": 1,
+        "artista": {
+          "id_artista": 2,
+          "nombre": "Otro artista"
+        },
+        "genero": {
+          "id_genero": 2,
+          "tipo": "Jazz HTTP"
+        }
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "FK activas tras reiniciar",
+    "peticion": "DELETE /generos/2",
+    "entrada": null,
+    "esperado": {
+      "status": 400,
+      "body": {
+        "detail": "No se puede eliminar el recurso porque tiene vinilos asociados."
+      }
+    },
+    "obtenido": {
+      "status": 400,
+      "body": {
+        "detail": "No se puede eliminar el recurso porque tiene vinilos asociados."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Borrar un vinilo",
+    "peticion": "DELETE /vinilos/1",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": {
+        "detail": "Recurso eliminado correctamente."
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "detail": "Recurso eliminado correctamente."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Vinilo eliminado no existe",
+    "peticion": "GET /vinilos/1",
+    "entrada": null,
+    "esperado": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "obtenido": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Segundo borrado de vinilo",
+    "peticion": "DELETE /vinilos/1",
+    "entrada": null,
+    "esperado": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "obtenido": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Borrado no afecta al resto del catálogo",
+    "peticion": "GET /vinilos",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Segundo disco",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 2
+        }
+      ]
+    },
+    "obtenido": {
+      "status": 200,
+      "body": [
+        {
+          "titulo": "Segundo disco",
+          "año": 2000,
+          "precio": "12.50",
+          "descripcion": "Prueba HTTP",
+          "artista_id": 1,
+          "genero_id": 1,
+          "id_vinilo": 2
+        }
+      ]
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Género conservado",
+    "peticion": "GET /generos/2",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": {
+        "id_genero": 2,
+        "tipo": "Jazz HTTP"
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "tipo": "Jazz HTTP",
+        "id_genero": 2
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Artista conservado",
+    "peticion": "GET /artistas/2",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": {
+        "id_artista": 2,
+        "nombre": "Otro artista",
+        "descripcion": null,
+        "vinilos": []
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "nombre": "Otro artista",
+        "descripcion": null,
+        "id_artista": 2,
+        "vinilos": []
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Borrar artista sin vinilos",
+    "peticion": "DELETE /artistas/2",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": {
+        "detail": "Recurso eliminado correctamente."
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "detail": "Recurso eliminado correctamente."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Borrar género sin vinilos",
+    "peticion": "DELETE /generos/2",
+    "entrada": null,
+    "esperado": {
+      "status": 200,
+      "body": {
+        "detail": "Recurso eliminado correctamente."
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "detail": "Recurso eliminado correctamente."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Artista eliminado",
+    "peticion": "GET /artistas/2",
+    "entrada": null,
+    "esperado": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "obtenido": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Género eliminado",
+    "peticion": "GET /generos/2",
+    "entrada": null,
+    "esperado": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "obtenido": {
+      "status": 404,
+      "body": {
+        "detail": "Recurso no encontrado."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Otro artista sigue protegido",
+    "peticion": "DELETE /artistas/1",
+    "entrada": null,
+    "esperado": {
+      "status": 400,
+      "body": {
+        "detail": "No se puede eliminar el recurso porque tiene vinilos asociados."
+      }
+    },
+    "obtenido": {
+      "status": 400,
+      "body": {
+        "detail": "No se puede eliminar el recurso porque tiene vinilos asociados."
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Precio cero permitido",
+    "peticion": "PUT /vinilos/2",
+    "entrada": {
+      "titulo": "Segundo disco",
+      "año": 2000,
+      "precio": "0",
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 200,
+      "body": {
+        "titulo": "Segundo disco",
+        "año": 2000,
+        "precio": "0.00",
+        "descripcion": "Prueba HTTP",
+        "artista_id": 1,
+        "genero_id": 1,
+        "id_vinilo": 2
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "titulo": "Segundo disco",
+        "año": 2000,
+        "precio": "0.00",
+        "descripcion": "Prueba HTTP",
+        "artista_id": 1,
+        "genero_id": 1,
+        "id_vinilo": 2
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Precio nulo permitido",
+    "peticion": "PUT /vinilos/2",
+    "entrada": {
+      "titulo": "Segundo disco",
+      "año": 2000,
+      "precio": null,
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 200,
+      "body": {
+        "titulo": "Segundo disco",
+        "año": 2000,
+        "precio": null,
+        "descripcion": "Prueba HTTP",
+        "artista_id": 1,
+        "genero_id": 1,
+        "id_vinilo": 2
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "titulo": "Segundo disco",
+        "año": 2000,
+        "precio": null,
+        "descripcion": "Prueba HTTP",
+        "artista_id": 1,
+        "genero_id": 1,
+        "id_vinilo": 2
+      }
+    },
+    "correcto": true
+  },
+  {
+    "caso": "Precio omitido permitido",
+    "peticion": "PUT /vinilos/2",
+    "entrada": {
+      "titulo": "Segundo disco",
+      "año": 2000,
+      "descripcion": "Prueba HTTP",
+      "artista_id": 1,
+      "genero_id": 1
+    },
+    "esperado": {
+      "status": 200,
+      "body": {
+        "titulo": "Segundo disco",
+        "año": 2000,
+        "precio": null,
+        "descripcion": "Prueba HTTP",
+        "artista_id": 1,
+        "genero_id": 1,
+        "id_vinilo": 2
+      }
+    },
+    "obtenido": {
+      "status": 200,
+      "body": {
+        "titulo": "Segundo disco",
+        "año": 2000,
+        "precio": null,
+        "descripcion": "Prueba HTTP",
+        "artista_id": 1,
+        "genero_id": 1,
+        "id_vinilo": 2
+      }
+    },
+    "correcto": true
+  }
+]
